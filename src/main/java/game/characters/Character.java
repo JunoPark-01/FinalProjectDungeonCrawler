@@ -68,6 +68,11 @@ public class Character {
         return false;
     }
 
+    //TODO
+    public void enterRoom(Room room) {
+
+    }
+
 /*
     public void fight(){
 
