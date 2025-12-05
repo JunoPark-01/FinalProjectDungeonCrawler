@@ -1,6 +1,7 @@
 package game.characters;
 
 import game.Die;
+import game.artifacts.Food;
 import game.char_strategy.PlayStrategy;
 import game.maze.Room;
 
@@ -98,13 +99,41 @@ public class Character {
 
     public void doAction(){}
 
-/*
-    public void fight(){
-
+    public void eat(Food food) {
+        this.gainHealth(food.healthValue());
     }
-    public void move(){
 
+    public void move(Room destinationRoom) {
+        assert getCurrentLocation().hasNeighbor(destinationRoom);
+        destinationRoom.enter(this);
     }
-*/
+
+
+
+    public void fight(Character foe){
+        Integer adventurerRoll = getRoll();
+        Integer creatureRoll = foe.getRoll();
+        if (adventurerRoll > creatureRoll) {
+            Double healthLoss = (double) (adventurerRoll - creatureRoll);
+            foe.loseHealth(healthLoss);
+        } else if (creatureRoll > adventurerRoll) {
+            Double healthLoss = (double) (creatureRoll - adventurerRoll);
+            loseHealth(healthLoss);
+        }
+    }
+
+    public void fightWBleed(Character foe, Double bleedHealth){
+        Integer adventurerRoll = getRoll();
+        Integer creatureRoll = foe.getRoll();
+        if (adventurerRoll > creatureRoll) {
+            Double healthLoss = (double) (adventurerRoll - creatureRoll);
+            foe.loseHealth(healthLoss);
+        } else if (creatureRoll > adventurerRoll) {
+            Double healthLoss = (double) (creatureRoll - adventurerRoll);
+            loseHealth(healthLoss);
+        }
+        foe.loseHealth(bleedHealth);
+    }
+
 
 }

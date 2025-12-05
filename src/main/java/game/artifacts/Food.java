@@ -1,13 +1,6 @@
 package game.artifacts;
 
-public class Food {
-    private final String name;
-    private final Double healthValue;
-
-    public Food(String name, Double healthValue){
-        this.name = name;
-        this.healthValue = healthValue;
-    }
+public record Food(String name, Double healthValue){
 
     @Override
     public String toString() {
