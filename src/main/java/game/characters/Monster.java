@@ -4,8 +4,8 @@ import game.Die;
 import game.char_strategy.PlayStrategy;
 
 public class Monster extends Character{
-    public Monster(String name, Double health, Double money, Die die, PlayStrategy strategy) {
-        super(name, health, money, die, strategy);
+    public Monster(String name, Double health, Double money, Die die) {
+        super(name, health, money, die);
         this.money = 0.0;
     }
 

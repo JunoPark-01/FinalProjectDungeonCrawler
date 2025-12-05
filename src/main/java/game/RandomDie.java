@@ -14,8 +14,8 @@ public class RandomDie implements Die {
         return new RandomDie(6);
     }
 
-    public static Die tenSided() {
-        return new RandomDie(10);
+    public static Die eightSided() {
+        return new RandomDie(8);
     }
 
     public static Die twelveSided() {

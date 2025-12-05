@@ -9,7 +9,7 @@ public class Character {
     Double health;
     Double money;
     Die die;
-    PlayStrategy strategy;
+//    PlayStrategy strategy;
 
     private Room currentLocation;
 
@@ -17,12 +17,12 @@ public class Character {
         return currentLocation;
     }
 
-    public Character(String name, Double health, Double money, Die die, PlayStrategy strategy){
+    public Character(String name, Double health, Double money, Die die){
         this.name = name;
         this.health = health;
         this.money = money;
         this.die = die;
-        this.strategy = strategy;
+//        this.strategy = strategy;
     }
 
     public String getName(){
@@ -67,9 +67,9 @@ public class Character {
         return die.roll();
     }
 
-    public void setStrategy(PlayStrategy newStrategy){
-        this.strategy = newStrategy;
-    }
+//    public void setStrategy(PlayStrategy newStrategy){
+//        this.strategy = newStrategy;
+//    }
 
     public Boolean isDead(){
         return health <= 0;
