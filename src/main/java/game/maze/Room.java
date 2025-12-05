@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import game.artifacts.*;
 import game.characters.Character;
 
 public class Room {
@@ -14,6 +15,7 @@ public class Room {
     private final List<Room> neighbors = new ArrayList<>();
     private final List<Character> characters = new ArrayList<>();
     private final List<Food> foodItems = new ArrayList<>();
+    private final List<Weapon> weaponItems = new ArrayList<>();
 
     public Room(String name) {
         this.name = name;
@@ -131,6 +133,8 @@ public class Room {
         foodItems.add(food);
     }
 
+    public void add(Weapon weapon){weaponItems.add(weapon);}
+
     public boolean hasFood() {
         return !foodItems.isEmpty();
     }
@@ -155,4 +159,11 @@ public class Room {
         return Optional.of(monsters.get(rand.nextInt(monsters.size())));
     }
 
+    public List<Room> getNeighbors() {
+        return neighbors;
+    }
+
+    public List<Weapon> getWeapons() {
+        return weaponItems;
+    }
 }

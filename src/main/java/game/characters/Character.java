@@ -44,7 +44,7 @@ public class Character {
         health -= healthLoss;
     }
 
-    public Double getMoney(Double money){
+    public Double getMoney(){
         return money;
     }
 
@@ -83,10 +83,20 @@ public class Character {
         return false;
     }
 
-    //TODO
     public void enterRoom(Room room) {
-
+        if (getCurrentLocation() != null) {
+            if (getCurrentLocation().equals(room)) {
+                return;
+            }
+            getCurrentLocation().remove(this);
+        }
+        this.currentLocation = room;
     }
+
+    //These two are for polymorphism when calling Player's specific commands
+    public void doAction(String input){}
+
+    public void doAction(){}
 
 /*
     public void fight(){
