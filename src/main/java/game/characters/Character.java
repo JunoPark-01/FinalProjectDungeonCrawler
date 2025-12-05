@@ -7,20 +7,20 @@ import game.maze.Room;
 public class Character {
     protected String name;
     Double health;
+    Double money;
     Die die;
     PlayStrategy strategy;
 
     private Room currentLocation;
 
-
-
     public Room getCurrentLocation() {
         return currentLocation;
     }
 
-    public Character(String name, Double health, Die die, PlayStrategy strategy){
+    public Character(String name, Double health, Double money, Die die, PlayStrategy strategy){
         this.name = name;
         this.health = health;
+        this.money = money;
         this.die = die;
         this.strategy = strategy;
     }
@@ -42,6 +42,21 @@ public class Character {
             return;
         }
         health -= healthLoss;
+    }
+
+    public Double getMoney(Double money){
+        return money;
+    }
+
+    void earnMoney(Double moneyAdded){
+         money += moneyAdded;
+    }
+
+    void loseMoney(Double moneyLost){
+        if (money <= 0){
+            return;
+        }
+        money -= moneyLost;
     }
 
     void changeDie(Die newDie){
