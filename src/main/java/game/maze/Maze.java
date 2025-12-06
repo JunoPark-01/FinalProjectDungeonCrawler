@@ -38,7 +38,7 @@ public class Maze {
     public List<Character> getLivingCharacters() {
         List<Character> characters = new ArrayList<>();
         for (Room room : rooms) {
-            characters.addAll(room.getLivingPlayer());
+            characters.addAll(room.getLivingCharacters());
         }
         return characters;
     }
@@ -47,10 +47,9 @@ public class Maze {
         return getLivingCharacters().stream().anyMatch(character -> !character.isDead());
     }
 
-    public List<Character> getLivingPlayer() {
+    public Optional<Character> getLivingPlayer() {
         return getLivingCharacters().stream()
-                .filter(Character::isPlayer)
-                .toList();
+                .filter(Character::isPlayer).findFirst();
     }
 
     public List<Room> getRooms() {

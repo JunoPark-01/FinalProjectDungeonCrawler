@@ -93,7 +93,6 @@ public class Character {
             if (getCurrentLocation().equals(room)) {
                 return;
             }
-            getCurrentLocation().remove(this);
         }
         this.currentLocation = room;
     }
@@ -105,11 +104,12 @@ public class Character {
 
     public void eat(Food food) {
         this.gainHealth(food.healthValue());
-        currentLocation.getFoodItems().remove(food);
+        this.currentLocation.getFoodItems().remove(food);
     }
 
     public void move(Room destinationRoom) {
         assert getCurrentLocation().hasNeighbor(destinationRoom);
+        this.currentLocation = destinationRoom;
         destinationRoom.enter(this);
     }
 

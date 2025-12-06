@@ -6,6 +6,7 @@ import game.characters.Character;
 import game.maze.*;
 import game.characters.*;
 
+import javax.sound.midi.SysexMessage;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -43,6 +44,7 @@ public class DungeonCrawler {
         turnCount += 1;
 
         // Process all the characters in random order
+        System.out.println(maze.getLivingCharacters().size());
         List<Character> characters = getLivingCharacters();
         while (!characters.isEmpty()) {
             int index = randomness.nextInt(characters.size());
@@ -52,15 +54,15 @@ public class DungeonCrawler {
                     List<String> listOfOptions = createListOfOptions(character.getCurrentLocation());
                     displayStats(character);
                     displayOptions(listOfOptions);
-                    //TODO cin
                     System.out.println("Choose an option number");
                     String input = scanner.nextLine();
                     while (!validOption(input, listOfOptions)) {
                         System.out.println("Please pick a valid option");
                         input = scanner.nextLine();
                     }
+                    System.out.println();
+                    System.out.println("You decided to go with option "+input);
                     character.doAction(input, listOfOptions);
-                    System.out.println("You decided to "+input);
                 }
             }else{  //monster
                 if(!character.isDead()){
@@ -76,11 +78,13 @@ public class DungeonCrawler {
     private void displayStats(Character player) {
         System.out.println("Player name :"+player.getName());
         System.out.println("Health: "+ player.getHealth());
+        System.out.println("Current Room: "+player.getCurrentLocation().getName());
         if(player.getWeapon() == null){
             System.out.println("No weapon currently equipped");
         }else{
-            System.out.println("Equipped Weapon: "+ player.getWeapon().toString()+"\n");
+            System.out.println("Equipped Weapon: "+ player.getWeapon().toString());
         }
+        System.out.println();
     }
 
     private List<String> createListOfOptions(Room room){
@@ -102,7 +106,7 @@ public class DungeonCrawler {
             result.add("Option "+numberOfOptions+": Fight the monster "+currentMonster.getName());
             numberOfOptions ++;
         }
-        System.out.print("\n");
+        System.out.println("\n");
         return result;
     }
 

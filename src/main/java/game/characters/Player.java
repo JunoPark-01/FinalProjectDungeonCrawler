@@ -7,6 +7,7 @@ import game.artifacts.Weapon;
 import game.char_strategy.PlayStrategy;
 import game.maze.Room;
 
+import javax.sound.midi.SysexMessage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +39,7 @@ public class Player extends Character{
 
         //Move option
         if(actionTaken.contains(POSSIBLE_ACTIONS.get(0))){
+            System.out.println("Moving");
             movementActionSelected(actionTaken);
 
         //Pick up food option
