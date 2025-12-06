@@ -5,6 +5,8 @@ import game.artifacts.Weapon;
 import game.characters.Character;
 import game.maze.*;
 import game.characters.*;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import java.util.List;
@@ -47,15 +49,17 @@ public class DungeonCrawler {
             Character character = characters.get(index);
             if(character.isPlayer()) { //player
                 if (!character.isDead()) {
-                    displayOptions(character.getCurrentLocation());
+                    List<String> listOfOptions = createListOfOptions(character.getCurrentLocation());
+                    displayStats(character);
+                    displayOptions(listOfOptions);
                     //TODO cin
-                    System.out.println("Choose an option");
+                    System.out.println("Choose an option number");
                     String input = scanner.nextLine();
-                    while (validOption(input)) {
+                    while (!validOption(input, listOfOptions)) {
                         System.out.println("Please pick a valid option");
                         input = scanner.nextLine();
                     }
-                    character.doAction(input);
+                    character.doAction(input, listOfOptions);
                     System.out.println("You decided to "+input);
                 }
             }else{  //monster
@@ -69,22 +73,56 @@ public class DungeonCrawler {
         }
     }
 
-    private void displayOptions(Room room){
+    private void displayStats(Character player) {
+        System.out.println("Player name :"+player.getName());
+        System.out.println("Health: "+ player.getHealth());
+        if(player.getWeapon() == null){
+            System.out.println("No weapon currently equipped");
+        }else{
+            System.out.println("Equipped Weapon: "+ player.getWeapon().toString()+"\n");
+        }
+    }
+
+    private List<String> createListOfOptions(Room room){
+        List<String> result = new ArrayList<>();
         int numberOfOptions = 1;
         for(Room currentRoom : room.getNeighbors()){
-            System.out.println("Option "+numberOfOptions+": Move to room "+currentRoom.getName());
+            result.add("Option "+numberOfOptions+": Move to room "+currentRoom.getName());
+            numberOfOptions ++;
         }
         for(Food currentFood : room.getFoodItems()){
-            System.out.println("Option "+numberOfOptions+": Pick up food "+currentFood.toString());
+            result.add("Option "+numberOfOptions+": Pick up food "+currentFood.toString());
+            numberOfOptions ++;
         }
         for(Weapon currentWeapon : room.getWeapons()){
-            System.out.println("Option "+numberOfOptions+": Pick up weapon "+currentWeapon.toString());
+            result.add("Option "+numberOfOptions+": Pick up weapon "+currentWeapon.toString());
+            numberOfOptions ++;
+        }
+        for(Character currentMonster : room.getLivingMonsters()){
+            result.add("Option "+numberOfOptions+": Fight the monster "+currentMonster.getName());
+            numberOfOptions ++;
+        }
+        System.out.print("\n");
+        return result;
+    }
+
+    private void displayOptions(List<String> listOfOptions){
+        for(String option : listOfOptions){System.out.println(option);}
+    }
+
+    private boolean actuallyNumberedString(String input){
+        try {
+            Integer.parseInt(input);
+            return true;
+        }catch(NumberFormatException stringNotJustIntegerError){
+            return false;
         }
     }
 
     //TODO
-    private boolean validOption(String input){
-        return true;
+    private boolean validOption(String input, List<String> listOfOptions){
+        if(actuallyNumberedString(input)){return Integer.parseInt(input) > 0 && Integer.parseInt(input) <= listOfOptions.size();}
+        return false;
     }
 
     private List<Character> getLivingCharacters() {

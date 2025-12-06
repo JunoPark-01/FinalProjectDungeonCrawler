@@ -149,6 +149,11 @@ public class Maze {
             return this;
         }
 
+        public Builder addPlayer(Character player){
+            nextRoom().add(player);
+            return this;
+        }
+
         public Builder addCharacters(List<Character> characters) {
             for (Character character : characters) {
                 nextRoom().add(character);

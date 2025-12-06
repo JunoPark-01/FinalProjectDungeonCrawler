@@ -3,7 +3,9 @@ package game.artifacts;
 import game.Die;
 import game.RandomDie;
 
+import java.util.List;
 import java.util.Random;
+import java.util.stream.IntStream;
 
 public class WeaponFactory {
     private static final Random random = new Random();
@@ -32,6 +34,12 @@ public class WeaponFactory {
 
     public Weapon createWeapon(String name, Die die) {
         return new Weapon(name, die);
+    }
+
+    public List<Weapon> createWeapons(int numberOfWeapons){
+        return IntStream.range(0, numberOfWeapons)
+                .mapToObj(_ -> createBasicWeapon())
+                .toList();
     }
 
     public Weapon createBasicWeapon() {

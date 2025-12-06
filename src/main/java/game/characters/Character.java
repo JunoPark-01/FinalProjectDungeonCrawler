@@ -2,14 +2,18 @@ package game.characters;
 
 import game.Die;
 import game.artifacts.Food;
+import game.artifacts.Weapon;
 import game.char_strategy.PlayStrategy;
 import game.maze.Room;
+
+import java.util.List;
 
 public class Character {
     protected String name;
     Double health;
     Double money;
     Die die;
+    Weapon weapon;
 //    PlayStrategy strategy;
 
     private Room currentLocation;
@@ -94,13 +98,14 @@ public class Character {
         this.currentLocation = room;
     }
 
-    //These two are for polymorphism when calling Player's specific commands
-    public void doAction(String input){}
+    //This is for polymorphism when calling Player's specific commands
+    public void doAction(String input, List<String> listOfOptions) {}
 
     public void doAction(){}
 
     public void eat(Food food) {
         this.gainHealth(food.healthValue());
+        currentLocation.getFoodItems().remove(food);
     }
 
     public void move(Room destinationRoom) {
@@ -111,14 +116,17 @@ public class Character {
 
 
     public void fight(Character foe){
+        System.out.println(getName()+" is now fighting " +foe.getName());
         Integer adventurerRoll = getRoll();
         Integer creatureRoll = foe.getRoll();
         if (adventurerRoll > creatureRoll) {
             Double healthLoss = (double) (adventurerRoll - creatureRoll);
             foe.loseHealth(healthLoss);
+            System.out.println("You won the fight! "+foe.getName()+" lost "+healthLoss+" and now has "+foe.getHealth()+".");
         } else if (creatureRoll > adventurerRoll) {
             Double healthLoss = (double) (creatureRoll - adventurerRoll);
             loseHealth(healthLoss);
+            System.out.println("You lost the fight! "+foe.getName()+" dealt "+healthLoss+" damage and now you have "+getHealth()+".");
         }
     }
 
@@ -135,5 +143,14 @@ public class Character {
         foe.loseHealth(bleedHealth);
     }
 
+    //TODO
+    protected void equip(Weapon currentWeapon) {
+        weapon = currentWeapon;
+        currentLocation.getWeapons().remove(currentWeapon);
+        System.out.println("Congratulations! You've equipped the weapon "+weapon.toString()+".");
+    }
 
+    public Weapon getWeapon(){
+        return weapon;
+    }
 }
