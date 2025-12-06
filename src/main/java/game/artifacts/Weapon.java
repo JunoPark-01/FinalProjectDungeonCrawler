@@ -10,4 +10,9 @@ public class Weapon {
         this.name = name;
         this.die = die;
     }
+
+    @Override
+    public String toString() {
+        return name + "(" + die.toString() + ")";
+    }
 }

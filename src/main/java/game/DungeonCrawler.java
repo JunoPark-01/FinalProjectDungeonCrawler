@@ -44,7 +44,6 @@ public class DungeonCrawler {
         turnCount += 1;
 
         // Process all the characters in random order
-        System.out.println(maze.getLivingCharacters().size());
         List<Character> characters = getLivingCharacters();
         while (!characters.isEmpty()) {
             int index = randomness.nextInt(characters.size());
@@ -66,8 +65,9 @@ public class DungeonCrawler {
                 }
             }else{  //monster
                 if(!character.isDead()){
+                    //TODO What should the monsters do
                     character.doAction();
-                    System.out.println("Monster "+character.getName()+" moved");
+//                    System.out.println("Monster "+character.getName()+" moved");
 
                 }
             }
@@ -123,7 +123,6 @@ public class DungeonCrawler {
         }
     }
 
-    //TODO
     private boolean validOption(String input, List<String> listOfOptions){
         if(actuallyNumberedString(input)){return Integer.parseInt(input) > 0 && Integer.parseInt(input) <= listOfOptions.size();}
         return false;

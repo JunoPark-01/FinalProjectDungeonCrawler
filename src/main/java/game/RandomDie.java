@@ -29,4 +29,8 @@ public class RandomDie implements Die {
     public int roll() {
         return rand.nextInt(sides) + 1;
     }
+
+    public String toString(){
+        return sides+" sided die";
+    }
 }

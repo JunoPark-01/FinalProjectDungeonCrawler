@@ -166,4 +166,8 @@ public class Room {
     public List<Weapon> getWeapons() {
         return weaponItems;
     }
+
+    public void consumed(Food food) {
+        foodItems.remove(food);
+    }
 }

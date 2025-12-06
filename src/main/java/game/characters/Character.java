@@ -104,11 +104,13 @@ public class Character {
 
     public void eat(Food food) {
         this.gainHealth(food.healthValue());
-        this.currentLocation.getFoodItems().remove(food);
+        System.out.println("You've eaten the food "+food.toString());
+        this.currentLocation.consumed(food);
     }
 
     public void move(Room destinationRoom) {
         assert getCurrentLocation().hasNeighbor(destinationRoom);
+        System.out.println("You've moved from "+getCurrentLocation().getName()+" to  "+destinationRoom.getName());
         this.currentLocation = destinationRoom;
         destinationRoom.enter(this);
     }
