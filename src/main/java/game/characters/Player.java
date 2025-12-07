@@ -11,6 +11,8 @@ import javax.sound.midi.SysexMessage;
 import java.util.ArrayList;
 import java.util.List;
 
+import static game.characters.Player.Glutton.DEFAULTG_INITIAL_HEALTH;
+
 public class Player extends Character{
     private static Player currentPlayer;
     final static Double DEFAULT_INITIAL_HEALTH = 20.0;
@@ -106,6 +108,25 @@ public class Player extends Character{
 
     public void pickupKey(){
         key = true;
+    }
+
+    public static class Glutton extends Player {
+        final static Double DEFAULTG_INITIAL_HEALTH = 15.0;
+        private Glutton(String name, Die die) {
+            super(name, DEFAULTG_INITIAL_HEALTH, DEFAULT_INITIAL_MONEY, die);
+        }
+
+        @Override
+        public void eat(Food food) {
+            this.gainHealth(food.healthValue()*2);
+            System.out.println("You've eaten the food "+food.toString());
+            this.getCurrentLocation().consumed(food);
+        }
+    }
+
+    public static Player getGluttonInstance(String name, Die die){
+        if(currentPlayer == null){currentPlayer = new Glutton(name, die);}
+        return currentPlayer;
     }
 
 }

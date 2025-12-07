@@ -19,6 +19,10 @@ public class CharacterFactory {
         return Player.getInstance(name, die);
     }
 
+    public Character createGlutton(String name, Die die){
+        return Player.Glutton.getGluttonInstance(name, die);
+    }
+
     public Character createMonster(String name){
         Die die = RandomDie.sixSided();
         return new Monster(name, DEFAULT_MONSTER_INITIAL_HEALTH, DEFAULT_STARTING_MONEY, die);

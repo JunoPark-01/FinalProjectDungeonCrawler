@@ -43,7 +43,7 @@ public class WeaponFactory {
     }
 
     public Weapon createBasicWeapon() {
-        Die die = RandomDie.eightSided();
+        Die die = RandomDie.fourSided();
         return createWeapon(getRandomBasicWeaponName(), die);
     }
 
