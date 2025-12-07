@@ -8,7 +8,7 @@ import java.util.stream.IntStream;
 
 public class CharacterFactory {
 //    static final Double DEFAULT_PLAYER_INITIAL_HEALTH = 20.0;
-    static final Double DEFAULT_MONSTER_INITIAL_HEALTH = 15.0;
+    static final Double DEFAULT_MONSTER_INITIAL_HEALTH = 7.0;
     static final Double DEFAULT_STARTING_MONEY = 0.0;
 
     public Character createPlayer(String name){

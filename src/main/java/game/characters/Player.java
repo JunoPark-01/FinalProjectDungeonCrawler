@@ -17,6 +17,7 @@ public class Player extends Character{
     final static Double DEFAULT_INITIAL_MONEY = 0.0;
     final static Die DEFAULT_INITIAL_DIE = RandomDie.sixSided();
     final static List<String> POSSIBLE_ACTIONS = List.of("Move", "Pick up food", "Pick up weapon", "Fight");
+    Boolean key = false;
 
     private Player(String name, Double health, Double money, Die die){
         super(name, health, money, die);
@@ -97,6 +98,14 @@ public class Player extends Character{
             }
         }
         System.out.println("Well, we couldn't find the room you were looking for.");
+    }
+
+    private Boolean hasKey(){
+        return key = true;
+    }
+
+    public void pickupKey(){
+        key = true;
     }
 
 }

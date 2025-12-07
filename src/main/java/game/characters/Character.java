@@ -64,8 +64,8 @@ public class Character {
         money -= moneyLost;
     }
 
-    void changeDie(Die newDie){
-        die = newDie;
+    public void setDie(Die newDie){
+        this.die = newDie;
     }
 
     private int getRoll(){

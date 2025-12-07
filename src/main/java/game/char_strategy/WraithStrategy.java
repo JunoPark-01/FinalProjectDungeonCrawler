@@ -25,6 +25,8 @@ public class WraithStrategy extends PlayStrategy {
             return;
         }
 
+        //Used GPT for the idea of creating a copy of the list of rooms from maze to randomly select
+        //a room for wraith teleportation
         List<Room> rooms = new ArrayList<>(maze.getRooms());
         rooms.remove(currentRoom);
         Room target = rooms.get(rand.nextInt(rooms.size()));
