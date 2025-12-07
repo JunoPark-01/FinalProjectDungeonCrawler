@@ -23,8 +23,8 @@ public class Player extends Character{
         this.money = money;
     }
 
-    public static Player getInstance(String name, Double health, Double money, Die die){
-        if(currentPlayer == null){currentPlayer = new Player(name, health, money, die);}
+    public static Player getInstance(String name, Die die){
+        if(currentPlayer == null){currentPlayer = new Player(name, DEFAULT_INITIAL_HEALTH, DEFAULT_INITIAL_MONEY, die);}
         return currentPlayer;
     }
 

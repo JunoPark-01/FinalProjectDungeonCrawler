@@ -114,6 +114,9 @@ public class DungeonCrawler {
         for(String option : listOfOptions){System.out.println(option);}
     }
 
+    //Used ChatGPT to figure out how to check the parseInt would be seen as an integer
+    //so we won't run into an error on checking its value also being in between
+    //the possible options.
     private boolean actuallyNumberedString(String input){
         try {
             Integer.parseInt(input);

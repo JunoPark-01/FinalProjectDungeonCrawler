@@ -145,7 +145,6 @@ public class Character {
         foe.loseHealth(bleedHealth);
     }
 
-    //TODO
     protected void equip(Weapon currentWeapon) {
         weapon = currentWeapon;
         currentLocation.getWeapons().remove(currentWeapon);
