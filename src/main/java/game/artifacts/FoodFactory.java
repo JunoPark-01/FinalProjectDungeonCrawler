@@ -1,5 +1,6 @@
 package game.artifacts;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
@@ -48,10 +49,28 @@ public class FoodFactory {
         return createFood(getRandomGreatFoodName(), GREAT_FOOD_VALUE);
     }
 
-    public List<Food> createFoods(int numberOfFoods) {
+    public List<Food> createBasicFoods(int numberOfFoods) {
         return IntStream.range(0, numberOfFoods)
                 .mapToObj(_ -> createBasicFood())
                 .toList();
+    }
+
+    public List<Food> createFoodTypes(int numberOfBasicFood, int numberOfGoodFood, int numberOfGreatFood) {
+        List<Food> foodList = new ArrayList<>();
+
+        IntStream.range(0, numberOfBasicFood)
+                .mapToObj(_ -> createBasicFood())
+                .forEach(foodList::add);
+
+        IntStream.range(0, numberOfGoodFood)
+                .mapToObj(_ -> createGoodFood())
+                .forEach(foodList::add);
+
+        IntStream.range(0, numberOfGreatFood)
+                .mapToObj(_ -> createGreatFood())
+                .forEach(foodList::add);
+
+        return foodList;
     }
 
 //    public List<Food> createFood(int numberOfItems) {

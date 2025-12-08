@@ -3,6 +3,7 @@ package game.artifacts;
 import game.Die;
 import game.RandomDie;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
@@ -40,6 +41,21 @@ public class WeaponFactory {
         return IntStream.range(0, numberOfWeapons)
                 .mapToObj(_ -> createBasicWeapon())
                 .toList();
+    }
+
+    public List<Weapon> createWeaponTypes(int numGoodWeapons, int numGreatWeapons) {
+        List<Weapon> weaponList = new ArrayList<>();
+
+        IntStream.range(0, numGoodWeapons)
+                .mapToObj(_ -> createGoodWeapon())
+                .forEach(weaponList::add);
+
+        IntStream.range(0, numGreatWeapons)
+                .mapToObj(_ -> createGreatWeapon())
+                .forEach(weaponList::add);
+
+
+        return weaponList;
     }
 
     public Weapon createBasicWeapon() {

@@ -1,11 +1,8 @@
 package game.chest;
 
 public class KeyChestAdapter implements Chest{
-    private final KeyChest keyChest;
+    private final KeyChest keyChest = new KeyChest();
 
-    public KeyChestAdapter(KeyChest chest){
-        this.keyChest = chest;
-    }
 
     @Override
     public Object open(){
