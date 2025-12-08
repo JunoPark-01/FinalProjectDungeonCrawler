@@ -6,11 +6,12 @@ import game.char_strategy.PlayStrategy;
 import game.maze.Room;
 
 public class Monster extends Character{
+    final static Double DEFAULT_INITIAL_POINTS = 0.0;
     PlayStrategy strategy;
     public Monster(String name, Double health, PlayStrategy strategy, Double points, Die die) {
         super(name, health, points, die);
         this.strategy= strategy;
-        this.points = 0.0;
+        this.points = DEFAULT_INITIAL_POINTS;
     }
 
     @Override
