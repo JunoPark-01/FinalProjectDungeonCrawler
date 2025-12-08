@@ -28,7 +28,7 @@ public class LosingFightTest {
                 .createNRoomsWithMConnections(2, 2)
                 .distributeRandomly()
                 .addPlayer(myCharacterFactory.createPlayer(playerName,riggedDie))
-                .addCharacters(myCharacterFactory.createMonsters(1))
+                .addMonsters(myCharacterFactory.createMonsters(1))
                 .addChests(myChestFactory, 2)
                 .build();
         DungeonCrawler newDungeonCrawlerGame = new DungeonCrawler(myMaze);

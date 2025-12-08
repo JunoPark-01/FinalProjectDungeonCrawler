@@ -119,6 +119,12 @@ public class Character {
         destinationRoom.enter(this);
     }
 
+    public void move(Character character, Room destinationRoom) {
+        assert character.getCurrentLocation().hasNeighbor(destinationRoom);
+        character.currentLocation = destinationRoom;
+        destinationRoom.enter(character);
+    }
+
 
 
     public void fight(Character foe){

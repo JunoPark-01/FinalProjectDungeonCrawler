@@ -1,16 +1,24 @@
 package game.char_strategy;
 
-import game.artifacts.Food;
 import game.maze.Room;
 import game.characters.Character;
+import game.maze.Maze;
 
-public class DemonStrategy extends PlayStrategy {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+public class DarkGluttonStrategy extends PlayStrategy {
+
+
+
     @Override
     public void doAction(Character character, Room currentRoom) {
-        if (currentRoom.hasLivingPlayer()) {
-            character.fight(currentRoom.getLivingPlayer().getFirst());
+        if (currentRoom.hasFood()) {
+            character.eat(currentRoom.getFood().get());
             return;
         }
+
         character.move(character, currentRoom.getRandomNeighbor());
     }
 }

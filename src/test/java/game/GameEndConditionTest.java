@@ -21,18 +21,18 @@ public class GameEndConditionTest {
         WeaponFactory myWeaponFactory = new WeaponFactory();
         FoodFactory myFoodFactory = new FoodFactory();
         CharacterFactory myCharacterFactory = new CharacterFactory();
-        Die riggedDie = new RiggedDie(100);
+        Die riggedDie = new RiggedDie(3);
         Scanner myScanner = new Scanner(System.in);
         Maze myMaze;
         introduction();
         String playerName = myScanner.nextLine();
         System.out.println("Welcome "+ playerName+", we will begin creating your dungeon crawler experience!");
         myMaze = Maze.getNewBuilder(myRoomFactory)
-                .createNRoomsWithMConnections(2, 2)
+                .createNRoomsWithMConnections(4, 4)
                 .distributeRandomly()
-                .addPlayer(myCharacterFactory.createPlayer(playerName,riggedDie))
-                .addCharacters(myCharacterFactory.createMonsters(1))
-                .addWeapon(myWeaponFactory.createWeapons(1))
+                .addPlayer(myCharacterFactory.createPlayer(playerName))
+                .addMonsters(myCharacterFactory.createMonstersAndMonsterStrategies(1))
+                .addWeapon(myWeaponFactory.createWeaponTypes(1,1))
                 .addFood(myFoodFactory.createFoodTypes(1,1,1))
                 .build();
         DungeonCrawler newDungeonCrawlerGame = new DungeonCrawler(myMaze);

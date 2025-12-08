@@ -2,7 +2,6 @@ package game;
 
 import game.artifacts.FoodFactory;
 import game.artifacts.WeaponFactory;
-import game.characters.Character;
 import game.characters.CharacterFactory;
 import game.maze.Maze;
 import game.maze.RoomFactory;
@@ -31,9 +30,9 @@ public class GameTest {
                 .createNRoomsWithMConnections(16, 2)
                 .distributeRandomly()
                 .addPlayer(myCharacterFactory.createPlayer(playerName))
-                .addCharacters(myCharacterFactory.createMonsters(15))
+                .addMonsters(myCharacterFactory.createMonsters(15))
                 .addWeapon(myWeaponFactory.createWeapons(8))
-                .addFood(myFoodFactory.createFoods(8))
+                .addFood(myFoodFactory.createBasicFoods(8))
                 .build();
         DungeonCrawler newDungeonCrawlerGame = new DungeonCrawler(myMaze);
         newDungeonCrawlerGame.play();

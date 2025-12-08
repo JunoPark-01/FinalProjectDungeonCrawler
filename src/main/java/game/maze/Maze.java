@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.stream.IntStream;
 import game.characters.Character;
 import game.artifacts.*;
+import game.characters.Monster;
 import game.chest.ChestFactory;
 
 public class Maze {
@@ -164,6 +165,13 @@ public class Maze {
         public Builder addCharacters(List<Character> characters) {
             for (Character character : characters) {
                 nextRoom().add(character);
+            }
+            return this;
+        }
+
+        public Builder addMonsters(List<Monster> monsters) {
+            for (Monster monster : monsters) {
+                nextRoom().add(monster);
             }
             return this;
         }
