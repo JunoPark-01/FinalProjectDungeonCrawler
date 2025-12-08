@@ -70,9 +70,9 @@ public class Character {
         }
     }
 
-//    public void setDie(Die newDie){
-//        this.die = newDie;
-//    }
+    private void setDie(Die newDie){
+        this.die = newDie;
+    }
 
     int getRoll(){
         return die.roll();
@@ -154,6 +154,7 @@ public class Character {
     protected void equip(Weapon currentWeapon) {
         weapon = currentWeapon;
         currentLocation.getWeapons().remove(currentWeapon);
+        setDie(weapon.getDie());
         System.out.println("Congratulations! You've equipped the weapon "+weapon.toString()+".");
     }
 

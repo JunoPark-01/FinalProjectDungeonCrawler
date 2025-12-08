@@ -16,7 +16,7 @@ public class CharacterFactory {
     static final Double DEFAULT_DEMON_INITIAL_HEALTH = 10.0;
     static final Double DEFAULT_LEECH_INITIAL_HEALTH = 5.0;
     static final Double DEFAULT_DARKGOD_INITIAL_HEALTH = 15.0;
-    static final Double DEFAULT_STARTING_MONEY = 0.0;
+    static final Double DEFAULT_STARTING_POINTS = 0.0;
 
     public Character createPlayer(String name){
         return Player.getInstance(name);
@@ -31,7 +31,7 @@ public class CharacterFactory {
     }
 
     public Monster createDemon(String name, Double initialHealth) {
-        return new Monster(name, initialHealth, new DemonStrategy(), DEFAULT_STARTING_MONEY, RandomDie.sixSided());
+        return new Monster(name, initialHealth, new DemonStrategy(), DEFAULT_STARTING_POINTS, RandomDie.sixSided());
     }
 
     public Monster createLeech(String name) {
@@ -39,7 +39,7 @@ public class CharacterFactory {
     }
 
     public Monster createLeech(String name, Double initialHealth) {
-        return new Monster(name, initialHealth, new LeechStrategy(), DEFAULT_STARTING_MONEY, RandomDie.sixSided());
+        return new Monster(name, initialHealth, new LeechStrategy(), DEFAULT_STARTING_POINTS, RandomDie.sixSided());
     }
 
     public Monster createDarkGlutton(String name) {
@@ -47,7 +47,7 @@ public class CharacterFactory {
     }
 
     public Monster createDarkGlutton(String name, Double initialHealth) {
-        return new Monster(name, initialHealth, new DarkGluttonStrategy(), DEFAULT_STARTING_MONEY, RandomDie.sixSided());
+        return new Monster(name, initialHealth, new DarkGluttonStrategy(), DEFAULT_STARTING_POINTS, RandomDie.sixSided());
     }
 
     public Monster createDarkGod(String name) {
@@ -55,16 +55,16 @@ public class CharacterFactory {
     }
 
     public Monster createDarkGod(String name, Double initialHealth) {
-        return new Monster(name, initialHealth, new DarkGodStrategy(), DEFAULT_STARTING_MONEY, new RiggedDie(10));
+        return new Monster(name, initialHealth, new DarkGodStrategy(), DEFAULT_STARTING_POINTS, new RiggedDie(10));
     }
 
-    public Character createGlutton(String name, Die die){
-        return Player.Glutton.getGluttonInstance(name, die);
-    }
+//    public Character createGlutton(String name, Die die){
+//        return Player.Glutton.getGluttonInstance(name, die);
+//    }
 
     public Monster createMonster(String name){
         Die die = RandomDie.sixSided();
-        return new Monster(name, DEFAULT_MONSTER_INITIAL_HEALTH, new MonsterStrategy(), DEFAULT_STARTING_MONEY, die);
+        return new Monster(name, DEFAULT_MONSTER_INITIAL_HEALTH, new MonsterStrategy(), DEFAULT_STARTING_POINTS, die);
     }
 
     public List<Monster> createMonsters(int numberOfMonsters){

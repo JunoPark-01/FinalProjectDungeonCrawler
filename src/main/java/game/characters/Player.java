@@ -17,12 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static game.characters.Player.Glutton.DEFAULT_GLUTTON_INITIAL_HEALTH;
 
 public class Player extends Character{
     private static Player currentPlayer;
     final static Double DEFAULT_INITIAL_HEALTH = 20.0;
-    final static Double DEFAULT_INITIAL_MONEY = 0.0;
+    final static Double DEFAULT_INITIAL_POINTS = 0.0;
     final static Die DEFAULT_INITIAL_DIE = RandomDie.sixSided();
     final static List<String> POSSIBLE_ACTIONS = List.of("Move", "Pick up food", "Pick up weapon",
             "Fight", "Open locked room", "Open a chest");
@@ -34,12 +33,12 @@ public class Player extends Character{
     }
 
     public static Player getInstance(String name, Die die){
-        if(currentPlayer == null){currentPlayer = new Player(name, DEFAULT_INITIAL_HEALTH, DEFAULT_INITIAL_MONEY, die);}
+        if(currentPlayer == null){currentPlayer = new Player(name, DEFAULT_INITIAL_HEALTH, DEFAULT_INITIAL_POINTS, die);}
         return currentPlayer;
     }
 
     public static Player getInstance(String name){
-        if(currentPlayer == null){currentPlayer = new Player(name, DEFAULT_INITIAL_HEALTH, DEFAULT_INITIAL_MONEY, DEFAULT_INITIAL_DIE);}
+        if(currentPlayer == null){currentPlayer = new Player(name, DEFAULT_INITIAL_HEALTH, DEFAULT_INITIAL_POINTS, DEFAULT_INITIAL_DIE);}
         return currentPlayer;
     }
 
@@ -189,23 +188,24 @@ public class Player extends Character{
         getCurrentLocation().keyChestOpened();
     }
 
-    public static class Glutton extends Player {
-        final static Double DEFAULT_GLUTTON_INITIAL_HEALTH = 15.0;
-        private Glutton(String name, Die die) {
-            super(name, DEFAULT_GLUTTON_INITIAL_HEALTH, DEFAULT_INITIAL_MONEY, die);
-        }
-
-        @Override
-        public void eat(Food food) {
-            this.gainHealth(food.healthValue()*2);
-            System.out.println("You've eaten the food "+food.toString());
-            this.getCurrentLocation().consumed(food);
-        }
-    }
-
-    public static Player getGluttonInstance(String name, Die die){
-        if(currentPlayer == null){currentPlayer = new Glutton(name, die);}
-        return currentPlayer;
-    }
+//TODO if more time
+//    public static class Glutton extends Player {
+//        final static Double DEFAULT_GLUTTON_INITIAL_HEALTH = 15.0;
+//        private Glutton(String name, Die die) {
+//            super(name, DEFAULT_GLUTTON_INITIAL_HEALTH, DEFAULT_INITIAL_MONEY, die);
+//        }
+//
+//        @Override
+//        public void eat(Food food) {
+//            this.gainHealth(food.healthValue()*2);
+//            System.out.println("You've eaten the food "+food.toString());
+//            this.getCurrentLocation().consumed(food);
+//        }
+//    }
+//
+//    public static Player getGluttonInstance(String name, Die die){
+//        if(currentPlayer == null){currentPlayer = new Glutton(name, die);}
+//        return currentPlayer;
+//    }
 
 }

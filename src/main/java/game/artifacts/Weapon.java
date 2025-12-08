@@ -11,6 +11,10 @@ public class Weapon {
         this.die = die;
     }
 
+    public Die getDie(){
+        return die;
+    }
+
     @Override
     public String toString() {
         return name + "(" + die.toString() + ")";
