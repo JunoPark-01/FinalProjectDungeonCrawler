@@ -10,6 +10,8 @@ import game.maze.Room;
 import java.util.List;
 
 public class Character {
+    final static Double DEFAULT_POINTS_GAINED = 10.0;
+    final static Double DEFAULT_POINTS_LOST = 1.0;
     protected String name;
     Double health;
     Double points;
@@ -19,7 +21,7 @@ public class Character {
     Boolean enteredThroughLockedDoor = false;
 //    PlayStrategy strategy;
 
-    private Room currentLocation;
+    protected Room currentLocation;
 
     public Room getCurrentLocation() {
         return currentLocation;
@@ -117,12 +119,6 @@ public class Character {
         System.out.println("You've moved from "+getCurrentLocation().getName()+" to  "+destinationRoom.getName());
         this.currentLocation = destinationRoom;
         destinationRoom.enter(this);
-    }
-
-    public void move(Character character, Room destinationRoom) {
-        assert character.getCurrentLocation().hasNeighbor(destinationRoom);
-        character.currentLocation = destinationRoom;
-        destinationRoom.enter(character);
     }
 
 

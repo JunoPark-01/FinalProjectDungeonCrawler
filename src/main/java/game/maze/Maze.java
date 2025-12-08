@@ -112,16 +112,6 @@ public class Maze {
             return this;
         }
 
-        public Builder createRooms(List<String> roomNames) {
-            maze.rooms = new ArrayList<>();
-            for (String roomName : roomNames) {
-                Room currentRoom = roomFactory.createRoom(roomName);
-                roomMap.put(currentRoom.getName(), currentRoom);
-                maze.rooms.add(currentRoom);
-            }
-            return this;
-        }
-
         public Builder fullyConnectRooms() {
             for (Room room : maze.rooms) {
                 for (Room otherRoom : maze.rooms) {
@@ -162,12 +152,6 @@ public class Maze {
             return this;
         }
 
-        public Builder addCharacters(List<Character> characters) {
-            for (Character character : characters) {
-                nextRoom().add(character);
-            }
-            return this;
-        }
 
         public Builder addMonsters(List<Monster> monsters) {
             for (Monster monster : monsters) {
@@ -205,15 +189,6 @@ public class Maze {
             return maze;
         }
 
-        public Builder addToRoom(String roomName, Character character) {
-            getRoom(roomName).add(character);
-            return this;
-        }
-
-        public Builder addToRoom(String roomName, Food foodItem) {
-            getRoom(roomName).add(foodItem);
-            return this;
-        }
 
         public Room getRoom(String roomName) {
             return roomMap.get(roomName);

@@ -23,8 +23,6 @@ public class Player extends Character{
     private static Player currentPlayer;
     final static Double DEFAULT_INITIAL_HEALTH = 20.0;
     final static Double DEFAULT_INITIAL_MONEY = 0.0;
-    final static Double DEFAULT_POINTS_GAINED = 10.0;
-    final static Double DEFAULT_POINTS_LOST = 1.0;
     final static Die DEFAULT_INITIAL_DIE = RandomDie.sixSided();
     final static List<String> POSSIBLE_ACTIONS = List.of("Move", "Pick up food", "Pick up weapon",
             "Fight", "Open locked room", "Open a chest");
@@ -174,7 +172,7 @@ public class Player extends Character{
             Double healthLoss = (double) (playerRoll - monsterRoll);
             foe.loseHealth(healthLoss);
             System.out.println("You won the fight! "+foe.getName()+" lost "+healthLoss+" and now has "+foe.getHealth()+".");
-            if(foe.getHealth() <= 0){
+            if(foe.isDead()){
                 earnPoints(DEFAULT_POINTS_GAINED);
                 System.out.println("Congratulations! You best the monster " +foe.getName()+" and earned "+DEFAULT_POINTS_GAINED+", you now have "+ getPoints() +" points!");
             }

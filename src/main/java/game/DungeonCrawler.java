@@ -13,6 +13,7 @@ import java.util.Scanner;
 
 import java.util.List;
 import java.util.Random;
+import java.util.stream.IntStream;
 
 public class DungeonCrawler {
     Maze maze;
@@ -48,8 +49,18 @@ public class DungeonCrawler {
         // Process all the characters in random order
         List<Character> characters = getLivingCharacters();
         while (!characters.isEmpty()) {
-            int index = randomness.nextInt(characters.size());
-            Character character = characters.get(index);
+            int index = IntStream.range(0, characters.size())
+                    .filter(i -> characters.get(i).isPlayer())
+                    .findFirst()
+                    .orElse(-1);
+            Character character = characters.stream()
+                    .filter(Character::isPlayer)
+                    .findFirst()
+                    .orElse(null);
+            if(character == null) {
+                index = randomness.nextInt(characters.size());
+                character = characters.get(index);
+            }
             if(character.isPlayer()) { //player
                 if (!character.isDead()) {
                     List<String> listOfOptions = createListOfOptions(character.getCurrentLocation());

@@ -11,6 +11,6 @@ public class LeechStrategy extends PlayStrategy{
             character.fightWBleed(foe, 1.0);
             return;
         }
-        character.move(character, currentRoom.getRandomNeighbor());
+        character.move(currentRoom.getRandomNeighbor());
     }
 }

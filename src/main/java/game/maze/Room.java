@@ -4,6 +4,7 @@ import java.util.*;
 
 import game.artifacts.*;
 import game.characters.Character;
+import game.characters.Monster;
 import game.chest.KeyChest;
 import game.chest.WeaponChest;
 
@@ -194,5 +195,9 @@ public class Room {
 
     public List<Character> getCharacters() {
         return characters;
+    }
+
+    public void exited(Character character) {
+        characters.remove(character);
     }
 }

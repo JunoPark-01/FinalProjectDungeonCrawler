@@ -19,6 +19,6 @@ public class DarkGluttonStrategy extends PlayStrategy {
             return;
         }
 
-        character.move(character, currentRoom.getRandomNeighbor());
+        character.move(currentRoom.getRandomNeighbor());
     }
 }

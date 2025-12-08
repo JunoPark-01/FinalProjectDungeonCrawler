@@ -11,6 +11,6 @@ public class DemonStrategy extends PlayStrategy {
             character.fight(currentRoom.getLivingPlayer().getFirst());
             return;
         }
-        character.move(character, currentRoom.getRandomNeighbor());
+        character.move(currentRoom.getRandomNeighbor());
     }
 }
