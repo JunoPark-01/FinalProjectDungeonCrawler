@@ -203,14 +203,6 @@ public class DungeonCrawler {
                 .orElse(null);
     }
 
-    public Character getWinner() {
-        if (!isOver() || !hasLivingCharacters()) {
-            // No one has won yet, or no one won -- all died
-            return null;
-        }
-        return getLivingCharacters().getFirst();
-    }
-
     private boolean hasLivingCharacters() {
         return maze.hasLivingCharacters();
     }
