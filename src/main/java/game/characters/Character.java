@@ -2,6 +2,7 @@ package game.characters;
 
 import game.Die;
 import game.artifacts.Food;
+import game.artifacts.Key;
 import game.artifacts.Weapon;
 import game.char_strategy.PlayStrategy;
 import game.maze.Room;
@@ -11,9 +12,11 @@ import java.util.List;
 public class Character {
     protected String name;
     Double health;
-    Double money;
+    Double points;
     Die die;
     Weapon weapon;
+    Key hasKey = null;
+    Boolean enteredThroughLockedDoor = false;
 //    PlayStrategy strategy;
 
     private Room currentLocation;
@@ -22,10 +25,10 @@ public class Character {
         return currentLocation;
     }
 
-    public Character(String name, Double health, Double money, Die die){
+    public Character(String name, Double health, Double points, Die die){
         this.name = name;
         this.health = health;
-        this.money = money;
+        this.points = points;
         this.die = die;
 //        this.strategy = strategy;
     }
@@ -49,26 +52,27 @@ public class Character {
         health -= healthLoss;
     }
 
-    public Double getMoney(){
-        return money;
+    public Double getPoints(){
+        return points;
     }
 
-    void earnMoney(Double moneyAdded){
-         money += moneyAdded;
+    void earnPoints(Double pointsAdded){
+         points += pointsAdded;
     }
 
-    void loseMoney(Double moneyLost){
-        if (money <= 0){
+    void losePoints(Double pointsLost){
+        points -= pointsLost;
+        if (points <= 0){
+            points = 0.0;
             return;
         }
-        money -= moneyLost;
     }
 
 //    public void setDie(Die newDie){
 //        this.die = newDie;
 //    }
 
-    private int getRoll(){
+    int getRoll(){
         return die.roll();
     }
 
@@ -119,27 +123,27 @@ public class Character {
 
     public void fight(Character foe){
         System.out.println(getName()+" is now fighting " +foe.getName());
-        Integer adventurerRoll = getRoll();
-        Integer creatureRoll = foe.getRoll();
-        if (adventurerRoll > creatureRoll) {
-            Double healthLoss = (double) (adventurerRoll - creatureRoll);
+        Integer playerRoll = getRoll();
+        Integer monsterRoll = foe.getRoll();
+        if (playerRoll > monsterRoll) {
+            Double healthLoss = (double) (playerRoll - monsterRoll);
             foe.loseHealth(healthLoss);
             System.out.println("You won the fight! "+foe.getName()+" lost "+healthLoss+" and now has "+foe.getHealth()+".");
-        } else if (creatureRoll > adventurerRoll) {
-            Double healthLoss = (double) (creatureRoll - adventurerRoll);
+        } else if (monsterRoll > playerRoll) {
+            Double healthLoss = (double) (monsterRoll - playerRoll);
             loseHealth(healthLoss);
             System.out.println("You lost the fight! "+foe.getName()+" dealt "+healthLoss+" damage and now you have "+getHealth()+".");
         }
     }
 
     public void fightWBleed(Character foe, Double bleedHealth){
-        Integer adventurerRoll = getRoll();
-        Integer creatureRoll = foe.getRoll();
-        if (adventurerRoll > creatureRoll) {
-            Double healthLoss = (double) (adventurerRoll - creatureRoll);
+        Integer playerRoll = getRoll();
+        Integer monsterRoll = foe.getRoll();
+        if (playerRoll > monsterRoll) {
+            Double healthLoss = (double) (playerRoll - monsterRoll);
             foe.loseHealth(healthLoss);
-        } else if (creatureRoll > adventurerRoll) {
-            Double healthLoss = (double) (creatureRoll - adventurerRoll);
+        } else if (monsterRoll > playerRoll) {
+            Double healthLoss = (double) (monsterRoll - playerRoll);
             loseHealth(healthLoss);
         }
         foe.loseHealth(bleedHealth);
@@ -154,4 +158,14 @@ public class Character {
     public Weapon getWeapon(){
         return weapon;
     }
+
+    public boolean hasKey(){
+        return hasKey != null;
+    }
+
+    public Key getKey(){
+        return hasKey;
+    }
+
+    public Boolean getEnteredThroughLockedDoor(){ return enteredThroughLockedDoor; }
 }

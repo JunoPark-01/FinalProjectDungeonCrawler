@@ -73,9 +73,9 @@ public class FoodFactory {
         return foodList;
     }
 
-//    public List<Food> createFood(int numberOfItems) {
-//        return IntStream.range(0, numberOfItems)
-//                .mapToObj(_ -> createFood())
-//                .toList();
-//    }
+    public List<Food> createFoods(int numberOfItems) {
+        return IntStream.range(0, numberOfItems)
+                .mapToObj(_ -> createBasicFood())
+                .toList();
+    }
 }

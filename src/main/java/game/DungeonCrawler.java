@@ -3,6 +3,7 @@ package game;
 import game.artifacts.Food;
 import game.artifacts.Weapon;
 import game.characters.Character;
+import game.chest.WeaponChest;
 import game.maze.*;
 import game.characters.*;
 
@@ -16,6 +17,7 @@ import java.util.Random;
 public class DungeonCrawler {
     Maze maze;
     int turnCount = 0;
+    boolean lockedDoorIsBreached = false;
     final Random randomness = new Random();
     Scanner scanner = new Scanner(System.in);
 
@@ -62,10 +64,13 @@ public class DungeonCrawler {
                     System.out.println();
                     System.out.println("You decided to go with option "+input);
                     character.doAction(input, listOfOptions);
+                    if(character.getEnteredThroughLockedDoor()){
+                        lockedDoorIsBreached = true;
+                        break;
+                    }
                 }
             }else{  //monster
                 if(!character.isDead()){
-                    //TODO What should the monsters do
                     character.doAction();
 //                    System.out.println("Monster "+character.getName()+" moved");
 
@@ -79,6 +84,13 @@ public class DungeonCrawler {
         System.out.println("Player name :"+player.getName());
         System.out.println("Health: "+ player.getHealth());
         System.out.println("Current Room: "+player.getCurrentLocation().getName());
+        System.out.println("Current Points: "+player.getPoints());
+        System.out.print("Key: ");
+        if(player.hasKey()){
+            System.out.println("You have the key "+player.getKey().getName());
+        }else{
+            System.out.println("You currently do not have any keys");
+        }
         if(player.getWeapon() == null){
             System.out.println("No weapon currently equipped");
         }else{
@@ -105,6 +117,19 @@ public class DungeonCrawler {
         for(Character currentMonster : room.getLivingMonsters()){
             result.add("Option "+numberOfOptions+": Fight the monster "+currentMonster.getName());
             numberOfOptions ++;
+        }
+
+        for(WeaponChest currentWeaponChest : room.getWeaponChests()){
+            result.add("Option "+numberOfOptions+": Open a chest");
+            numberOfOptions++;
+        }
+        if(room.getKeyChest() != null){
+            result.add("Option "+numberOfOptions+": Open a chest");
+            numberOfOptions++;
+        }
+
+        if(room.isFinalRoom()){
+            result.add("Option "+numberOfOptions+": Open locked room to end the game");
         }
         System.out.println("\n");
         return result;
@@ -135,28 +160,33 @@ public class DungeonCrawler {
         return maze.getLivingCharacters();
     }
 
+    private List<Character> getAllCharacters(){
+        return maze.getAllCharacters();
+    }
+
     public void play() {
-        while (!isOver()) {
+        while (!isOver() && !lockedDoorIsBreached) {
             playTurn();
         }
         System.out.println("The game ended after "+turnCount+" turns.\n");
         String eventDescription;
+
         if (hasLivingPlayer()) {
-            eventDescription = "You won! Congratulations, your money score is " + getPlayerMoney() + "\n";
+            eventDescription = "You won! Congratulations, your points score is " + getPlayerPoints() + "\n";
         } else if (hasLivingMonsters()) {
-            eventDescription = "You lost. The monsters won, your final money score is " + getPlayerMoney() + "\n";
+            eventDescription = "You lost. The monsters won, your final points score is " + getPlayerPoints() + "\n";
         } else {
-            eventDescription = "Both sides ended up dying. Unfortunately, you still lose, your final money score is " + getPlayerMoney() + "\n";
+            eventDescription = "Both sides ended up dying. Unfortunately, you still lose, your final points score is " + getPlayerPoints() + "\n";
         }
         System.out.println(eventDescription);
     }
 
-    private Double getPlayerMoney() {
-        return getPlayer().getMoney();
+    private Double getPlayerPoints() {
+        return getPlayer().getPoints();
     }
 
     private Character getPlayer() {
-        return getLivingCharacters().stream()
+        return getAllCharacters().stream()
                 .filter(Character::isPlayer)
                 .findFirst()
                 .orElse(null);

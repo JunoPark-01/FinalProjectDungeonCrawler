@@ -4,9 +4,9 @@ import game.Die;
 import game.char_strategy.PlayStrategy;
 
 public class Monster extends Character{
-    public Monster(String name, Double health, Double money, Die die) {
-        super(name, health, money, die);
-        this.money = 0.0;
+    public Monster(String name, Double health, Double points, Die die) {
+        super(name, health, points, die);
+        this.points = 0.0;
     }
 
     @Override

@@ -7,6 +7,7 @@ import game.maze.Room;
 public class DarkGodStrategy extends PlayStrategy{
 
 
+
     @Override
     public void doAction(Character character, Room currentRoom) {
 //        character.setDie(new RiggedDie(10));

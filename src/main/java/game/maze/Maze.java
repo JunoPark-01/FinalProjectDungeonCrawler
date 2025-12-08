@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.stream.IntStream;
 import game.characters.Character;
 import game.artifacts.*;
+import game.chest.ChestFactory;
 
 public class Maze {
     private List<Room> rooms;
@@ -65,6 +66,13 @@ public class Maze {
                 .filter(room -> room.getName().equals(roomName))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("No room with name " + roomName));
+    }
+
+    //Using ChatGPT I used this lambda to create the list of all characters regardless if alive or not.
+    public List<Character> getAllCharacters() {
+        return rooms.stream()
+                .flatMap(room -> room.getCharacters().stream())
+                .toList();
     }
 
     public static class Builder {
@@ -225,11 +233,43 @@ public class Maze {
 
         private Builder createRooms(int numberOfRooms) {
             maze.rooms = new ArrayList<>();
-            IntStream.range(0, numberOfRooms).forEach(_ -> {
+            IntStream.range(0, numberOfRooms).forEach(i -> {
                 Room currentRoom = roomFactory.createRoom();
+                if(i == numberOfRooms-1){
+                    currentRoom = gaurunteedHasFinalRoom(currentRoom, maze.rooms);
+                }
                 roomMap.put(currentRoom.getName(), currentRoom);
                 maze.rooms.add(currentRoom);
             });
+            return this;
+        }
+
+        private Room gaurunteedHasFinalRoom(Room room, List<Room> currentRoomList){
+            if(!listContainsFinalRoom(currentRoomList)){
+                while(!room.isFinalRoom()){
+                    room = roomFactory.createRoom();
+                }
+            }
+            return room;
+        }
+
+        private boolean listContainsFinalRoom(List<Room> currentRoomList){
+            for(Room currentRoom : currentRoomList){
+                if(currentRoom.isFinalRoom()){return true;}
+            }
+            return false;
+        }
+
+        public Builder addChests(ChestFactory newChestFactory, int numberOfChests) {
+            if(numberOfChests > 0){
+                nextRoom().add(newChestFactory.createKeyChest());
+            }
+
+            int newSize = numberOfChests-1;
+            //After adding the required chest, Key Chest, we add the other optional chests
+            if(newSize >0){
+                nextRoom().add(newChestFactory.createWeaponChests(newSize));
+            }
             return this;
         }
     }

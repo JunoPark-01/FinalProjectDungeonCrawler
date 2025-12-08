@@ -1,24 +1,29 @@
 package game.maze;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
+
 import game.artifacts.*;
 import game.characters.Character;
+import game.chest.KeyChest;
+import game.chest.WeaponChest;
 
 public class Room {
 
     static private final Random rand = new Random();
 
     private final String name;
+    private boolean isFinalRoom = false;
+    private final static String DEFAULT_FINAL_ROOM_NAME = "Castle";
     private final List<Room> neighbors = new ArrayList<>();
     private final List<Character> characters = new ArrayList<>();
     private final List<Food> foodItems = new ArrayList<>();
     private final List<Weapon> weaponItems = new ArrayList<>();
+    private final List<WeaponChest> weaponChests = new ArrayList<>();
+    private KeyChest keyChest;
 
     public Room(String name) {
         this.name = name;
+        if(name.equals(DEFAULT_FINAL_ROOM_NAME)){isFinalRoom = true;}
     }
 
     public String getName() {
@@ -83,10 +88,6 @@ public class Room {
         return getLivingCharacters().stream().anyMatch(Character::isPlayer);
     }
 
-    public void remove(Character character) {
-        characters.remove(character);
-    }
-
 //    public Character getRandomAdventurer() {
 //        List<Character> adventurers = getLivingAdventurers();
 //        return adventurers.get(rand.nextInt(adventurers.size()));
@@ -135,6 +136,18 @@ public class Room {
 
     public void add(Weapon weapon){weaponItems.add(weapon);}
 
+    public void add(List<WeaponChest> listOfWeaponChests){weaponChests.addAll(listOfWeaponChests);}
+
+    public List<WeaponChest> getWeaponChests(){
+        return weaponChests;
+    }
+
+    public void add(KeyChest keyChest){this.keyChest = keyChest;}
+
+    public KeyChest getKeyChest(){
+        return keyChest;
+    }
+
     public boolean hasFood() {
         return !foodItems.isEmpty();
     }
@@ -169,5 +182,17 @@ public class Room {
 
     public void consumed(Food food) {
         foodItems.remove(food);
+    }
+
+    public boolean isFinalRoom(){
+        return isFinalRoom;
+    }
+
+    public void keyChestOpened() {
+        keyChest = null;
+    }
+
+    public List<Character> getCharacters() {
+        return characters;
     }
 }
